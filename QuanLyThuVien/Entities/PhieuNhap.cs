@@ -16,13 +16,13 @@ namespace QuanLyThuVien.Entities
         private float DonGia;
         private float ThanhTien;
 
-        public int MaPhieuNhap
+        public int pMaPhieuNhap
         {
             get { return MaPhieuNhap; }
             set { MaPhieuNhap = value; }
         }
 
-        public DateTime NgayNhap
+        public DateTime pNgayNhap
         {
             get
             {
@@ -35,7 +35,7 @@ namespace QuanLyThuVien.Entities
             }
         }
 
-        public float TongTriGia
+        public float pTongTriGia
         {
             get
             {
@@ -47,18 +47,18 @@ namespace QuanLyThuVien.Entities
                 TongTriGia = value;
             }
         }
-        public int MaSach
+        public int pMaSach
         {
             get { return MaSach; }
             set { MaSach = value; }
         }
-        public int SoLuong
+        public int pSoLuong
         {
             get { return SoLuong; }
             set { SoLuong = value; }
         }
 
-        public float DonGia
+        public float pDonGia
         {
             get
             {
@@ -70,7 +70,7 @@ namespace QuanLyThuVien.Entities
                 DonGia = value;
             }
         }
-        public float ThanhTien
+        public float pThanhTien
         {
             get
             {
