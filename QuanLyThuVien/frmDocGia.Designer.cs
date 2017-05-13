@@ -33,10 +33,10 @@
             this.ribbonClientPanel1 = new DevComponents.DotNetBar.Ribbon.RibbonClientPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ribbonClientPanel3 = new DevComponents.DotNetBar.Ribbon.RibbonClientPanel();
-            this.label12 = new System.Windows.Forms.Label();
             this.cboNhanVien = new System.Windows.Forms.ComboBox();
             this.tblNhanVienBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.thuvienDataSet = new QuanLyThuVien.thuvienDataSet();
+            this.label12 = new System.Windows.Forms.Label();
             this.dateNgaySinh = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.txtDiaChi = new System.Windows.Forms.TextBox();
@@ -165,8 +165,8 @@
             // ribbonClientPanel3
             // 
             this.ribbonClientPanel3.CanvasColor = System.Drawing.SystemColors.Control;
-            this.ribbonClientPanel3.Controls.Add(this.label12);
             this.ribbonClientPanel3.Controls.Add(this.cboNhanVien);
+            this.ribbonClientPanel3.Controls.Add(this.label12);
             this.ribbonClientPanel3.Controls.Add(this.dateNgaySinh);
             this.ribbonClientPanel3.Controls.Add(this.label4);
             this.ribbonClientPanel3.Controls.Add(this.txtDiaChi);
@@ -209,25 +209,17 @@
             this.ribbonClientPanel3.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel3.TabIndex = 0;
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(252, 144);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(76, 13);
-            this.label12.TabIndex = 60;
-            this.label12.Text = "Tên nhân viên";
-            // 
             // cboNhanVien
             // 
             this.cboNhanVien.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tblNhanVienBindingSource, "MaNV", true));
             this.cboNhanVien.DataSource = this.tblNhanVienBindingSource;
-            this.cboNhanVien.DisplayMember = "TenNV";
+            this.cboNhanVien.DisplayMember = "TenDangNhap";
+            this.cboNhanVien.Enabled = false;
             this.cboNhanVien.FormattingEnabled = true;
-            this.cboNhanVien.Location = new System.Drawing.Point(355, 141);
+            this.cboNhanVien.Location = new System.Drawing.Point(357, 144);
             this.cboNhanVien.Name = "cboNhanVien";
-            this.cboNhanVien.Size = new System.Drawing.Size(200, 21);
-            this.cboNhanVien.TabIndex = 59;
+            this.cboNhanVien.Size = new System.Drawing.Size(198, 21);
+            this.cboNhanVien.TabIndex = 61;
             this.cboNhanVien.ValueMember = "MaNV";
             // 
             // tblNhanVienBindingSource
@@ -239,6 +231,15 @@
             // 
             this.thuvienDataSet.DataSetName = "thuvienDataSet";
             this.thuvienDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(252, 144);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(76, 13);
+            this.label12.TabIndex = 60;
+            this.label12.Text = "Tên nhân viên";
             // 
             // dateNgaySinh
             // 
@@ -813,6 +814,7 @@
             this.dataGridViewDocGia.Name = "dataGridViewDocGia";
             this.dataGridViewDocGia.Size = new System.Drawing.Size(825, 126);
             this.dataGridViewDocGia.TabIndex = 0;
+            this.dataGridViewDocGia.DataSourceChanged += new System.EventHandler(this.dataGridViewDocGia_DataSourceChanged);
             this.dataGridViewDocGia.CurrentCellChanged += new System.EventHandler(this.dataGridViewDocGia_CurrentCellChanged);
             // 
             // tblLoaiDocGiaTableAdapter
@@ -921,7 +923,7 @@
         private System.Windows.Forms.Button btnTaoMoi;
         private System.Windows.Forms.BindingSource tblNhanVienBindingSource;
         private thuvienDataSetTableAdapters.tblNhanVienTableAdapter tblNhanVienTableAdapter;
-        private System.Windows.Forms.ComboBox cboNhanVien;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cboNhanVien;
     }
 }

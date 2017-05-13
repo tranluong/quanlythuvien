@@ -245,5 +245,20 @@ namespace QuanLyThuVien
                 intMaDauSach = value;
             }
         }
+
+        public int SoLuongSau
+        {
+            get
+            {
+                return intSoLuongSau;
+            }
+
+            set
+            {
+                intSoLuongSau = value;
+            }
+        }
+
+        private int intSoLuongSau;
     }
 }

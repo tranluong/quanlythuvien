@@ -12,5 +12,9 @@ namespace QuanLyThuVien.Entities
         {
             public static string _mahd = null;
         }
+        public class GETSOLUONG
+        {
+            public static int _soluong ;
+        }
     }
 }

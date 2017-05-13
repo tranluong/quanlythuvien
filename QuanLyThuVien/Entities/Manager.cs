@@ -112,6 +112,8 @@ namespace QuanLyThuVien
             }
         }
 
+        
+
         public byte[] PhanQuyen = new byte[10];
         private int intMaPQ;
         //public byte[] PhanQuyen
@@ -127,7 +129,11 @@ namespace QuanLyThuVien
         //    }
         //}
         private int intManv;
+        public class GetCodeHD
+        {
+            public static string TenMaNV = null;
+        }
 
-       
+
     }
 }

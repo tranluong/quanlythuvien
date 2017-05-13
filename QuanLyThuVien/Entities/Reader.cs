@@ -100,5 +100,11 @@ namespace QuanLyThuVien
         }
 
         private int intMaLoaiDG = 1 ;
+        private string strTenNhanVien ;
+        public string TenNhanVien
+        {
+            get { return strTenNhanVien; }
+            set { strTenNhanVien = value; }
+        }
     }
 }

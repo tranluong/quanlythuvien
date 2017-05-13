@@ -24,7 +24,15 @@ namespace QuanLyThuVien
             txtMaDG.Text = clsDG.MaDG;
             txtTenDG.Text = clsDG.TenDG;
             txtSoTienDC.Text = clsDG.TienDatCoc.ToString();
-            txtLoaiDG.Text = clsDG.LoaiDG.ToString();
+            if(Convert.ToInt16(clsDG.LoaiDG.ToString()) ==1)
+            {
+                txtLoaiDG.Text = "Sinh Viên";
+            }
+            else
+            {
+                txtLoaiDG.Text = "Giáo Viên";
+            }
+            //txtLoaiDG.Text = clsDG.LoaiDG.ToString();
             txtSLMuonVe.Text = clsDG.SoCuonMuonVe.ToString();
         }
         //Khởi tạo các cột trong datagridvew trên
@@ -37,11 +45,22 @@ namespace QuanLyThuVien
             dt.Columns.Add(dc);
 
             dc = new DataColumn();
-            dc.ColumnName = "Mã Đầu Sách";
+            dc.ColumnName = "TenDG";
+            //dc.Caption = "Mã độc giả";            
+            dt.Columns.Add(dc);
+
+
+            dc = new DataColumn();
+            dc.ColumnName = "LoaiDG";
+            //dc.Caption = "Mã độc giả";            
             dt.Columns.Add(dc);
 
             dc = new DataColumn();
-            dc.ColumnName = "Tên sách";
+            dc.ColumnName = "MaDauSach";
+            dt.Columns.Add(dc);
+
+            dc = new DataColumn();
+            dc.ColumnName = "TenSach";
             dt.Columns.Add(dc);
 
 
@@ -54,11 +73,7 @@ namespace QuanLyThuVien
             dt.Columns.Add(dc);
 
             dc = new DataColumn();
-            dc.ColumnName = "LoaiPM";
-            dt.Columns.Add(dc);
-
-            dc = new DataColumn();
-            dc.ColumnName = "Hình thức mượn";
+            dc.ColumnName = "NgayTra";
             dt.Columns.Add(dc);
 
             dc = new DataColumn();
@@ -66,11 +81,15 @@ namespace QuanLyThuVien
             dt.Columns.Add(dc);
 
             dc = new DataColumn();
-            dc.ColumnName = "NguoiCapNhatMuon";
+            dc.ColumnName = "MaNV";
+            dt.Columns.Add(dc);
+
+            dc = new DataColumn();
+            dc.ColumnName = "TinhTrang";
             dt.Columns.Add(dc);
 
             dataGridView2.DataSource = dt;
-            dataGridView2.Columns["NguoiCapNhatMuon"].Visible = false;
+            dataGridView2.Columns["MaNV"].Visible = false;
             //dataGridView2.Columns["MaDG"].Visible = false;
         }
         //Form load
@@ -81,6 +100,7 @@ namespace QuanLyThuVien
         //Fill thông tin sách
         private void FillBook(MuonTra clsMT)
         {
+            //txtMaSach.Text = Convert.ToString(clsMT.MaSach);
             txtTenSach.Text = clsMT.TenSach;
             txtTacGia.Text = clsMT.TacGia;
             txtDonGia.Text = clsMT.DonGia.ToString();
@@ -222,14 +242,14 @@ namespace QuanLyThuVien
             if (txtMaSach.Text.Trim().Length != 0)
             {
                 BookService clsBookService = new BookService();
-                if (clsBookService.TimSachMT(1, txtMaSach.Text, 1).Rows.Count == 0)
+                if (clsBookService.TimSachMT(txtMaSach.Text).Rows.Count == 0)
                 {
                     strError = "Sách này không có trong cơ sở dữ liệu";
                     MessageBox.Show(strError, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 MuonTraService cls = new MuonTraService();
-                MuonTra clsMT = cls.GetInfoBook(Convert.ToInt32(txtMaSach.Text));
+                MuonTra clsMT = cls.GetInfoBookXS(Convert.ToInt32(txtMaSach.Text));
                 FillBook(clsMT);
 
                 dataGridView1.DataSource = cls.XemSach(Convert.ToInt32(txtMaSach.Text.Trim()));
@@ -287,10 +307,26 @@ namespace QuanLyThuVien
         {
             DataRow row = dt.NewRow();
             row["MaDG"] = clsMTM.MaDG;
+            row["TenDG"] = txtTenDG.Text ;
+            row["LoaiDG"] = txtLoaiDG.Text;
+            //if (Convert.ToInt16(txtLoaiDG.Text) == 1)
+            //{
+            //    row["LoaiDG"] = "Sinh Viên";
+            //}
+            //else
+            //{
+            //    row["LoaiDG"] = "Giáo Viên";
+            //}
             MuonTraService MT = new MuonTraService();
-            row["MaSach"] = MT.GetInfoBook(Convert.ToInt32(txtMaSach.Text)).MaSach;
+            //row["MaSach"] = MT.GetInfoBook(Convert.ToInt32(txtMaSach.Text)).MaSach;
+            //row["TenSach"] = MT.GetInfoBook(Convert.ToInt32(txtMaSach.Text)).TenSach;
+            //row["MaSach"] = clsMTM.MaSach;
+            row["MaDauSach"] = clsMTM.MaDauSach;
             row["TenSach"] = MT.GetInfoBook(Convert.ToInt32(txtMaSach.Text)).TenSach;
             row["NgayMuon"] = DateTime.Today.Date;
+            row["NgayTra"] = dateNgayTra.Value.Date;
+            row["SoNgayMuon"] = dateNgayTra.Value.Day - DateTime.Today.Day;
+            row["TinhTrang"] = txtTinhTrang.Text;
             MuonTraService cls = new MuonTraService();
             MuonTra clsGB = cls.GetInfoBook(Convert.ToInt32(txtMaSach.Text));
             row["DonGia"] = clsGB.DonGia;
@@ -307,16 +343,16 @@ namespace QuanLyThuVien
                 {
                     clsMTM.MaDG = txtMaDG.Text.Trim();
                 }
-                if (!KiemTraSoLuong())
-                {
-                    MessageBox.Show(strError, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    dataGridView2.Focus();
-                }
-                if (!KiemTraSoTien())
-                {
-                    MessageBox.Show(strError, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    dataGridView2.Focus();
-                }
+                //if (!KiemTraSoLuong())
+                //{
+                //    MessageBox.Show(strError, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    dataGridView2.Focus();
+                //}
+                //if (!KiemTraSoTien())
+                //{
+                //    MessageBox.Show(strError, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    dataGridView2.Focus();
+                //}
                 if (MessageBox.Show("Xác nhận cho mượn ?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     clsMTM.NgayMuon = DateTime.Today;

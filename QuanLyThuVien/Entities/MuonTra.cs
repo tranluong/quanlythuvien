@@ -27,7 +27,7 @@ namespace QuanLyThuVien
         private int intSoCuonMuonVe;
         private int intMaDauSach;
         private int intTongSoTien;
-        private DateTime dateSoNgayMuon;
+        private int intSoNgayMuon;
         private DateTime dateSoNgayTre;
         public int MaPM
         {
@@ -276,16 +276,16 @@ namespace QuanLyThuVien
             }
         }
 
-        public DateTime SoNgayMuon
+        public int SoNgayMuon
         {
             get
             {
-                return dateSoNgayMuon;
+                return intSoNgayMuon;
             }
 
             set
             {
-                dateSoNgayMuon = value;
+                intSoNgayMuon = value;
             }
         }
 

@@ -35,6 +35,8 @@ namespace QuanLyThuVien
             // TODO: This line of code loads data into the 'thuvienDataSet.tblLoaiDocGia' table. You can move, or remove it, as needed.
             this.tblLoaiDocGiaTableAdapter.Fill(this.thuvienDataSet.tblLoaiDocGia);
             cboMaLoaiDocGia.SelectedIndex = 0;
+            dataGridViewDocGia.Columns[9].Visible = false;
+
         }
         private void FillForm(DataGridViewRow vr)
         {
@@ -112,6 +114,7 @@ namespace QuanLyThuVien
 
         private void btnCapnhat_Click(object sender, EventArgs e)
         {
+            ReaderService clsReaderService = new ReaderService();
             try
             {
                 if (!Validation())
@@ -132,14 +135,14 @@ namespace QuanLyThuVien
                     clsReader.TienDatCoc = Convert.ToInt32(txtTienDatCoc.Text.Trim());
                     clsReader.NgayDatCoc = DateTime.Today;
                     clsReader.MaNhanVien = KiemTra.userid;
-                   // clsReader.LoaiDG = Convert.ToByte(KiemTra.userid); 
+                    clsReader.MaNhanVien = Convert.ToInt16(cboNhanVien.SelectedValue);
+                    // clsReader.LoaiDG = Convert.ToByte(KiemTra.userid); 
                     clsReader.NgayDatCoc = DateTime.MinValue;
                     clsReader.LoaiDG = Convert.ToByte(cboMaLoaiDocGia.SelectedValue);
                     clsReader.ThoiGianBatDau = dateNBatDau.Value.Date;
                     clsReader.ThoiGianKetThuc = dateNKetThuc.Value.Date;
                     DataGridViewRow vr = dataGridViewDocGia.CurrentRow;
-                    string strReaderID = Convert.ToString(vr.Cells[0].Value);
-                    ReaderService clsReaderService = new ReaderService();
+                    string strReaderID = Convert.ToString(vr.Cells[0].Value);                   
                     if (clsReaderService.UpdateReader(strReaderID, clsReader))
                     {
                         dataGridViewDocGia.DataSource = clsReaderService.SearchReader(0, clsReader.MaDocGia, 1);
@@ -158,6 +161,7 @@ namespace QuanLyThuVien
             {
                 MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            dataGridViewDocGia.DataSource = clsReaderService.ShowAllReader();
         }
 
         private void btnTim_Click(object sender, EventArgs e)
@@ -184,8 +188,9 @@ namespace QuanLyThuVien
             rdoNam.Checked = true;
             txtDiaChi.Text = "";
             txtSDT.Text = "";
-            txtTienDatCoc.Text = "";
+            txtTienDatCoc.Text = "90000";
             dateNDatCoc.Value = DateTime.Today;
+            cboNhanVien.Text = Manager.GetCodeHD.TenMaNV.ToString();
             cboMaLoaiDocGia.SelectedIndex = 0;
             dateNBatDau.Value = DateTime.Today;
             dateNKetThuc.Value = DateTime.Today;
@@ -212,8 +217,6 @@ namespace QuanLyThuVien
                         dataGridViewDocGia.DataSource = clsReaderService.SearchReader(cboDocGia.SelectedIndex, txtKeyword.Text, cboFilter.SelectedIndex);
                         if (clsReaderService.Error != "")
                             MessageBox.Show(clsReaderService.Error, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        else
-                            dataGridViewDocGia.Focus();
                     }
                     else
                         MessageBox.Show(clsReaderService.Error, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -223,6 +226,9 @@ namespace QuanLyThuVien
             {
                 MessageBox.Show(ex.Message);
             }
+            ReaderService cls = new ReaderService();
+            dataGridViewDocGia.DataSource = cls.ShowAllReader();
+            MessageBox.Show("Xóa thành công");
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -241,7 +247,7 @@ namespace QuanLyThuVien
                 clsReader.SoDT = txtSDT.Text.Trim();
                 clsReader.TienDatCoc = Convert.ToInt32(txtTienDatCoc.Text.Trim());
                 clsReader.NgayDatCoc = DateTime.Today;
-                clsReader.MaNhanVien = KiemTra.userid;
+                cboNhanVien.Text = KiemTra.user;
                 clsReader.MaNhanVien = Convert.ToInt16(cboNhanVien.SelectedValue);// vua them
                 clsReader.LoaiDG = Convert.ToInt16(cboMaLoaiDocGia.SelectedValue);
                 // clsReader.LoaiDG = Convert.ToByte(KiemTra.userid);
@@ -263,6 +269,8 @@ namespace QuanLyThuVien
                     txtMaDG.SelectAll();
                     MessageBox.Show(clsReaderService.Error, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                dataGridViewDocGia.DataSource = clsReaderService.ShowAllReader();
+                //dataGridViewDocGia.Columns[9].Visible = true;
             }
         }
 
@@ -283,6 +291,9 @@ namespace QuanLyThuVien
             e.Handled = Input.Number(e);
         }
 
-      
+        private void dataGridViewDocGia_DataSourceChanged(object sender, EventArgs e)
+        {
+            //dataGridViewDocGia.Columns[9].Visible = false;
+        }
     }
 }

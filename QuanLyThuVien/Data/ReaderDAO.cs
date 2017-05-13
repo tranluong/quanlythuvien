@@ -313,7 +313,7 @@ namespace QuanLyThuVien
         }
         public DataTable ShowAllReader()
         {
-            string strSQL = "SELECT MaDG ,TenDG ,NgaySinh ,NoiSinh,CASE GioiTinh WHEN 1 THEN 'Nam' WHEN 0 THEN N'Nữ' END as 'Giới Tính',DiaChi ,SoDT,TienDatCoc,NgayDatCoc,MaNV ,CASE MaLoaiDG WHEN 1 THEN N'Sinh Vien' WHEN 2 THEN N'Giáo Viên'  END as 'Loại Độc Giả'  ,ThoiGianBatDau,ThoiGianKetThuc   FROM tblDocGia ";
+            string strSQL = "SELECT dg.MaDG ,dg.TenDG ,dg.NgaySinh ,dg.NoiSinh,CASE dg.GioiTinh WHEN 1 THEN 'Nam' WHEN 0 THEN N'Nữ' END as 'Giới Tính',dg.DiaChi ,dg.SoDT,dg.TienDatCoc,dg.NgayDatCoc,nv.TenNV ,CASE dg.MaLoaiDG WHEN 1 THEN N'Sinh Vien' WHEN 2 THEN N'Giáo Viên'  END as 'Loại Độc Giả', dg.ThoiGianBatDau, dg.ThoiGianKetThuc   FROM tblDocGia dg join tblNhanVien nv on dg.MaNV=nv.MaNV ";
             DataTable dt = new DataTable();
             Database cls = new Database();
             try
