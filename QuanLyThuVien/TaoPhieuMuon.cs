@@ -61,8 +61,8 @@ namespace QuanLyThuVien
 
         private void btnIn_Click(object sender, EventArgs e)
         {
-            QuanLyThuVien.Entities.GetCode.GetCodeHD._mahd = txtMaDG.Text;
-            InPhieuMuon frmHD = new InPhieuMuon();
+            //QuanLyThuVien.Entities.GetCode.GetCodeHD._mahd = txtMaDG.Text;
+            InPhieuNhap frmHD = new InPhieuNhap();
             frmHD.ShowDialog();
         }
     }
