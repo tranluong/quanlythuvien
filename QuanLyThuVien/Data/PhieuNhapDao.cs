@@ -141,6 +141,15 @@ namespace QuanLyThuVien.Data
             return blKey;
         }
 
+        public int getSLSach(int MSach)
+        {
+            string strsQL = "select SoLuong from tblSach where MaSach=@MaSach";
+            SqlCommand cmd = new SqlCommand(strsQL, Connection.sqlConnection);
+            cmd.Parameters.AddWithValue("@MaSach", MSach);
+            int SL = Convert.ToInt32(cmd.ExecuteScalar());
+            return SL;
+        }
+
         //Thuộc tính lỗi
         private string strError = "";
         public string Error

@@ -78,6 +78,7 @@ namespace QuanLyThuVien
             cboMaSach.ValueMember = "MaSach";
             gridPhieuNhap.DataSource = pn.HienThiPhieuNhap();
             txtTT.Enabled = false;
+            txtSL.Enabled = false;
             gridPhieuNhap.Columns[6].Visible = false;            
         }
 
@@ -221,6 +222,20 @@ namespace QuanLyThuVien
         {
             PhieuNhapService pnService = new PhieuNhapService();
             gridPhieuNhap.DataSource = pnService.SearchPhieuNhap(txtKeyword.Text);
+        }
+
+        private void cboMaSach_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int fid = 0;
+            try
+            {
+                fid = int.Parse(cboMaSach.SelectedValue.ToString());
+                PhieuNhapService pnService = new PhieuNhapService();
+                int SL = pnService.getSLSach(fid);
+                txtSL.Text = Convert.ToString(SL);
+            }
+            catch (Exception ex)
+            { }            
         }
     }
 }

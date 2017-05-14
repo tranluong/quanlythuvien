@@ -352,6 +352,7 @@
             this.cboMaSach.Name = "cboMaSach";
             this.cboMaSach.Size = new System.Drawing.Size(142, 22);
             this.cboMaSach.TabIndex = 9;
+            this.cboMaSach.SelectedIndexChanged += new System.EventHandler(this.cboMaSach_SelectedIndexChanged);
             // 
             // dateNgayNhap
             // 
@@ -440,7 +441,7 @@
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(75, 23);
             this.labelX2.TabIndex = 2;
-            this.labelX2.Text = "Mã sách";
+            this.labelX2.Text = "Tên sách";
             // 
             // txtSL
             // 

@@ -76,6 +76,15 @@ namespace QuanLyThuVien.Business
             return blKey;
         }
 
+        public int getSLSach(int MSach)
+        {
+            PhieuNhapDao phieuNhapDAO = new PhieuNhapDao();
+            int SLSach = phieuNhapDAO.getSLSach(MSach);
+            if (SLSach == 0)
+                strError = phieuNhapDAO.Error;
+            return SLSach;       
+        }
+
         //Thuộc tính lỗi
         private string strError = "";
         public string Error
