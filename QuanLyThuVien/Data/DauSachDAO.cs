@@ -24,7 +24,7 @@ namespace QuanLyThuVien.Data
         }
         public DataTable ShowAllDauSach(int intMADS)
         {
-            string strSQL = "select MaDauSach as 'Mã Đầu Sách', TenDauSach as 'Tên Đầu Sách', CASE TinhTrang WHEN 0 THEN N'Cũ' WHEN 1 THEN N'Mới' WHEN 2 THEN N'Hỏng' WHEN 3 THEN N'Mất' END as 'Tình Trạng', GhiChu as 'Ghi Chú', MaSach as ' Mã Sách' from tblDauSach where MaSach = '" + intMADS + "'";
+            string strSQL = "select MaDauSach as 'Mã Đầu Sách', TenDauSach as 'Tên Đầu Sách', CASE TinhTrang WHEN 0 THEN N'Cũ' WHEN 1 THEN N'Mới' WHEN 2 THEN N'Hỏng' WHEN 3 THEN N'Mất' END as 'Tình Trạng', GhiChu as 'Ghi Chú', MaSach as 'Mã Sách' from tblDauSach where MaSach = '" + intMADS + "'";
             DataTable dt = new DataTable();
             Database cls = new Database();
             try

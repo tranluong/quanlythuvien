@@ -48,7 +48,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblRecordCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gvDauSach = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.ribbonClientPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -57,7 +57,7 @@
             this.ribbonClientPanel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDauSach)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -182,7 +182,6 @@
             this.label64.Size = new System.Drawing.Size(51, 14);
             this.label64.TabIndex = 144;
             this.label64.Text = "Ghi chú:";
-            this.label64.Click += new System.EventHandler(this.label64_Click);
             // 
             // cboTinhTrang
             // 
@@ -302,7 +301,7 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Controls.Add(this.gvDauSach);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
@@ -327,13 +326,15 @@
             this.statusStrip1.TabIndex = 152;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // dataGridView1
+            // gvDauSach
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(671, 309);
-            this.dataGridView1.TabIndex = 0;
+            this.gvDauSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDauSach.Location = new System.Drawing.Point(3, 19);
+            this.gvDauSach.Name = "gvDauSach";
+            this.gvDauSach.Size = new System.Drawing.Size(671, 309);
+            this.gvDauSach.TabIndex = 0;
+            this.gvDauSach.DataSourceChanged += new System.EventHandler(this.gvDauSach_DataSourceChanged);
+            this.gvDauSach.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvDauSach_CellClick);
             // 
             // frmDauSach
             // 
@@ -355,7 +356,7 @@
             this.groupBox2.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDauSach)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -381,8 +382,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtMaSach;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ToolStripStatusLabel lblRecordCount;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.DataGridView gvDauSach;
     }
 }

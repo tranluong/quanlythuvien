@@ -28,22 +28,21 @@ namespace QuanLyThuVien
             clsBoo.TinhTrang = Convert.ToByte(cboTinhTrang.SelectedIndex);
             clsBoo.GhiChu = txtGhiChu.Text;
             clsBoo.TenDauSach = txtTenDauSach.Text;
-            DataGridViewRow vr = dataGridView1.CurrentRow;
+            DataGridViewRow vr = gvDauSach.CurrentRow;
             //GetCode.GETSOLUONG._soluong = Convert.ToInt16(txtSoLuong.Text);  
             int strBookID = GetCode.GETMaDauSach.masachDS;
             int MDS = Convert.ToInt16(vr.Cells["Mã Đầu Sách"].Value);
             BookService cls = new BookService();
             if (cls.EditDauSach(strBookID, clsBoo, MDS))
             {
-                dataGridView1.DataSource = cls.TimDauSach(clsBoo, MDS);
                 MessageBox.Show("Cập nhật thành công", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (cls.Error != "")
-                    MessageBox.Show(cls.Error, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
                 MessageBox.Show(cls.Error, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            dataGridView1.Refresh();
-            dataGridView1.DataSource = cls.ShowDSTSach(strBookID);
+            gvDauSach.Refresh();
+            gvDauSach.DataSource = cls.ShowDSTSach(strBookID);
+            gvDauSach.Columns[4].Visible = false;
+
         }
 
         private void frmDauSach_Load(object sender, EventArgs e)
@@ -51,32 +50,10 @@ namespace QuanLyThuVien
             loadData();            
         }
 
-        //private void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
-        //{
-        //    DataGridViewRow vr = dataGridView1.CurrentRow;
-        //    if (vr == null)
-        //    {
-        //        btnCapnhat.Enabled = false;
-        //    }
-        //    else
-        //    {
-
-        //        btnCapnhat.Enabled = true;
-        //        cboTinhTrang.SelectedValue = vr.Cells["TinhTrang"].Value;
-        //        txtGhiChu.Text = Convert.ToString(vr.Cells["GhiChu"].Value);
-        //    }
-        //}
-
-        private void dataGridView1_DataSourceChanged(object sender, EventArgs e)
-        {
-            int intRowCount = dataGridView1.RowCount;
-            lblRecordCount.Text = "Kết quả có " + intRowCount + " mẫu tin";
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             DauSachDAO pnDao = new DauSachDAO();
-            if (dataGridView1.Rows.Count > 0)
+            if (gvDauSach.Rows.Count > 0)
             {
                 int MaPN = GetCode.GETMaDauSach.masachDS;
                 if (MessageBox.Show("Xóa đầu sách: " + MaPN + " ?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -86,7 +63,7 @@ namespace QuanLyThuVien
                         MessageBox.Show("Xóa đầu sách thành công", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-                dataGridView1.DataSource = pnDao.ShowAllDauSach(GetCode.GETMaDauSach.masachDS);
+                gvDauSach.DataSource = pnDao.ShowAllDauSach(GetCode.GETMaDauSach.masachDS);
             }
             else
             {
@@ -94,10 +71,6 @@ namespace QuanLyThuVien
             }
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            fillData();
-        }
 
         public void loadData()
         {
@@ -105,7 +78,7 @@ namespace QuanLyThuVien
             DataTable dt = clsLDGService.ShowAllDauSach(GetCode.GETMaDauSach.masachDS);
             if (dt.Rows.Count != 0)
             {
-                dataGridView1.DataSource = dt;
+                gvDauSach.DataSource = dt;
                 fillData();
             }
             else
@@ -117,8 +90,8 @@ namespace QuanLyThuVien
         public void fillData()
         {
             txtMaSach.Enabled = false;
-            txtMaSach.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
-            string tinhTrang = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            txtMaSach.Text = gvDauSach.CurrentRow.Cells[4].Value.ToString();
+            string tinhTrang = gvDauSach.CurrentRow.Cells[2].Value.ToString();
             int _s = 0;
             if (tinhTrang == "Cũ")
             {
@@ -137,15 +110,20 @@ namespace QuanLyThuVien
                 _s = 3;
             }
             cboTinhTrang.SelectedIndex = _s;
-            txtTenDauSach.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-            txtGhiChu.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-            dataGridView1.Columns[4].Visible = false;
+            txtTenDauSach.Text = gvDauSach.CurrentRow.Cells[1].Value.ToString();
+            txtGhiChu.Text = gvDauSach.CurrentRow.Cells[3].Value.ToString();
+            gvDauSach.Columns[4].Visible = false;
         }
 
-        private void label64_Click(object sender, EventArgs e)
+        private void gvDauSach_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            fillData();
         }
 
+        private void gvDauSach_DataSourceChanged(object sender, EventArgs e)
+        {
+            int intRowCount = gvDauSach.RowCount;
+            lblRecordCount.Text = "Kết quả có " + intRowCount + " mẫu tin";
+        }
     }
 }
