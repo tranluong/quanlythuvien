@@ -15,6 +15,7 @@ namespace QuanLyThuVien
 {
     public partial class frmDauSach : Form
     {
+        GetCode abc = new GetCode();
         public frmDauSach()
         {
             InitializeComponent();
@@ -22,8 +23,7 @@ namespace QuanLyThuVien
 
         private void btnCapnhat_Click(object sender, EventArgs e)
         {
-            DauSach clsBoo = new DauSach();
-            GetCode abc = new GetCode();
+            DauSach clsBoo = new DauSach();           
             //clsBook.MaSach = Convert.ToInt16(cboMaSach.SelectedValue);
             clsBoo.TinhTrang = Convert.ToByte(cboTinhTrang.SelectedIndex);
             clsBoo.GhiChu = txtGhiChu.Text;
@@ -46,24 +46,36 @@ namespace QuanLyThuVien
         }
 
         private void frmDauSach_Load(object sender, EventArgs e)
-        {            
-            loadData();            
+        {
+            loadData();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             DauSachDAO pnDao = new DauSachDAO();
+            BookService cls = new BookService();
             if (gvDauSach.Rows.Count > 0)
             {
-                int MaPN = GetCode.GETMaDauSach.masachDS;
-                if (MessageBox.Show("Xóa đầu sách: " + MaPN + " ?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                int MaDS = Convert.ToInt16(gvDauSach.CurrentRow.Cells[0].Value);
+                if (!pnDao.kiemTraDauSach(MaDS))
                 {
-                    if (pnDao.DeleteDS(MaPN))
-                    {
-                        MessageBox.Show("Xóa đầu sách thành công", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    MessageBox.Show("Đầu sách này đang được sử dụng, không thể xóa !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                gvDauSach.DataSource = pnDao.ShowAllDauSach(GetCode.GETMaDauSach.masachDS);
+                else
+                {
+                    if (MessageBox.Show("Xóa đầu sách: " + MaDS + " ?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        if (pnDao.DeleteDS(MaDS))
+                        {
+                            gvDauSach.DataSource = cls.ShowDSTSach(GetCode.GETMaDauSach.masachDS);
+                            gvDauSach.AllowUserToAddRows = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Xóa đầu sách thất bại", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }                
             }
             else
             {
@@ -80,6 +92,7 @@ namespace QuanLyThuVien
             {
                 gvDauSach.DataSource = dt;
                 fillData();
+                gvDauSach.AllowUserToAddRows = false;
             }
             else
             {
@@ -124,6 +137,11 @@ namespace QuanLyThuVien
         {
             int intRowCount = gvDauSach.RowCount;
             lblRecordCount.Text = "Kết quả có " + intRowCount + " mẫu tin";
+        }
+
+        private void btnDong_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

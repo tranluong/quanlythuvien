@@ -272,6 +272,7 @@
             this.btnDong.TabIndex = 61;
             this.btnDong.Text = "Đóng";
             this.btnDong.UseVisualStyleBackColor = true;
+            this.btnDong.Click += new System.EventHandler(this.btnDong_Click);
             // 
             // ribbonClientPanel3
             // 

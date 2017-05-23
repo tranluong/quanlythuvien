@@ -39,10 +39,10 @@ namespace QuanLyThuVien.Data
             }
             return dt;
         }
-        public bool DeleteDS(int MAPN)
+        public bool DeleteDS(int MaDS)
         {
             bool blKey = false;
-            string strsQL = "delete from tblDauSach where MaSach= '" +MAPN+"'";
+            string strsQL = "delete from tblDauSach where MaDauSach= '" + MaDS + "'";
             SqlCommand cmd = new SqlCommand();
             Database cls = new Database();
             if (cls.Update(strsQL, CommandType.Text, cmd))
@@ -97,6 +97,30 @@ namespace QuanLyThuVien.Data
                 strError = "Cập nhật đầu sách thất bại";
             return blKey;
         }
+
+        public bool kiemTraDauSach(int MaDauSach)
+        {
+            bool blKey = false;
+            string strSQL = "select ds.MaDauSach from tblDauSach ds join tblChiTietPhieuMuonTra ct on ds.MaDauSach=ct.MaDauSach where ds.MaDauSach='" + MaDauSach + "' ";
+            DataTable dt = new DataTable();
+            Database cls = new Database();
+            try
+            {
+                dt = cls.GetData(strSQL).Tables[0];
+                if (dt.Rows.Count != 0)
+                {
+                    blKey = false;
+                }
+                else
+                    blKey = true;
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+            }
+            return blKey;
+        }
+
         private string strError = "";
         public string Error
         {
