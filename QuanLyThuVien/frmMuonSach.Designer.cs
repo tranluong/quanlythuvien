@@ -31,6 +31,10 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ribbonClientPanel2 = new DevComponents.DotNetBar.Ribbon.RibbonClientPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtTenSachMuon = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.txtMaSachMuon = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX10 = new DevComponents.DotNetBar.LabelX();
+            this.labelX9 = new DevComponents.DotNetBar.LabelX();
             this.button3 = new System.Windows.Forms.Button();
             this.cboTimSach = new System.Windows.Forms.ComboBox();
             this.gridViewSach = new System.Windows.Forms.DataGridView();
@@ -104,16 +108,22 @@
             // 
             // 
             // 
+            this.ribbonClientPanel2.StyleMouseDown.Class = "";
             this.ribbonClientPanel2.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
+            this.ribbonClientPanel2.StyleMouseOver.Class = "";
             this.ribbonClientPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel2.TabIndex = 1;
             // 
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.txtTenSachMuon);
+            this.groupBox3.Controls.Add(this.txtMaSachMuon);
+            this.groupBox3.Controls.Add(this.labelX10);
+            this.groupBox3.Controls.Add(this.labelX9);
             this.groupBox3.Controls.Add(this.button3);
             this.groupBox3.Controls.Add(this.cboTimSach);
             this.groupBox3.Controls.Add(this.gridViewSach);
@@ -123,37 +133,90 @@
             this.groupBox3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(3, 9);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(575, 274);
+            this.groupBox3.Size = new System.Drawing.Size(575, 496);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Thông tin sách mượn";
+            // 
+            // txtTenSachMuon
+            // 
+            // 
+            // 
+            // 
+            this.txtTenSachMuon.Border.Class = "TextBoxBorder";
+            this.txtTenSachMuon.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtTenSachMuon.Location = new System.Drawing.Point(251, 75);
+            this.txtTenSachMuon.Name = "txtTenSachMuon";
+            this.txtTenSachMuon.Size = new System.Drawing.Size(210, 20);
+            this.txtTenSachMuon.TabIndex = 76;
+            // 
+            // txtMaSachMuon
+            // 
+            // 
+            // 
+            // 
+            this.txtMaSachMuon.Border.Class = "TextBoxBorder";
+            this.txtMaSachMuon.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtMaSachMuon.Location = new System.Drawing.Point(68, 75);
+            this.txtMaSachMuon.Name = "txtMaSachMuon";
+            this.txtMaSachMuon.Size = new System.Drawing.Size(87, 20);
+            this.txtMaSachMuon.TabIndex = 74;
+            // 
+            // labelX10
+            // 
+            // 
+            // 
+            // 
+            this.labelX10.BackgroundStyle.Class = "";
+            this.labelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.labelX10.Location = new System.Drawing.Point(173, 72);
+            this.labelX10.Name = "labelX10";
+            this.labelX10.Size = new System.Drawing.Size(56, 23);
+            this.labelX10.TabIndex = 75;
+            this.labelX10.Text = "Tên Sách:";
+            // 
+            // labelX9
+            // 
+            // 
+            // 
+            // 
+            this.labelX9.BackgroundStyle.Class = "";
+            this.labelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.labelX9.Location = new System.Drawing.Point(6, 72);
+            this.labelX9.Name = "labelX9";
+            this.labelX9.Size = new System.Drawing.Size(56, 23);
+            this.labelX9.TabIndex = 74;
+            this.labelX9.Text = "Mã Sách:";
             // 
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Image = global::QuanLyThuVien.Properties.Resources.Add;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(225, 243);
+            this.button3.Location = new System.Drawing.Point(224, 457);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(153, 27);
             this.button3.TabIndex = 71;
             this.button3.Text = "Mượn quyển này";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // cboTimSach
             // 
             this.cboTimSach.FormattingEnabled = true;
-            this.cboTimSach.Location = new System.Drawing.Point(200, 33);
+            this.cboTimSach.Location = new System.Drawing.Point(185, 33);
             this.cboTimSach.Name = "cboTimSach";
-            this.cboTimSach.Size = new System.Drawing.Size(114, 22);
+            this.cboTimSach.Size = new System.Drawing.Size(178, 22);
             this.cboTimSach.TabIndex = 73;
             // 
             // gridViewSach
             // 
             this.gridViewSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridViewSach.Location = new System.Drawing.Point(6, 74);
+            this.gridViewSach.Location = new System.Drawing.Point(6, 119);
             this.gridViewSach.Name = "gridViewSach";
-            this.gridViewSach.Size = new System.Drawing.Size(562, 161);
+            this.gridViewSach.Size = new System.Drawing.Size(562, 332);
             this.gridViewSach.TabIndex = 72;
             // 
             // btnTimMuon
@@ -162,7 +225,7 @@
             this.btnTimMuon.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimMuon.Image = global::QuanLyThuVien.Properties.Resources.tim;
             this.btnTimMuon.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTimMuon.Location = new System.Drawing.Point(330, 33);
+            this.btnTimMuon.Location = new System.Drawing.Point(386, 32);
             this.btnTimMuon.Name = "btnTimMuon";
             this.btnTimMuon.Size = new System.Drawing.Size(75, 23);
             this.btnTimMuon.TabIndex = 72;
@@ -175,6 +238,7 @@
             // 
             // 
             // 
+            this.labelX8.BackgroundStyle.Class = "";
             this.labelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelX8.Location = new System.Drawing.Point(6, 33);
@@ -191,7 +255,7 @@
             "Tên Sách"});
             this.comboBox1.Location = new System.Drawing.Point(68, 33);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(114, 22);
+            this.comboBox1.Size = new System.Drawing.Size(99, 22);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -212,10 +276,12 @@
             // 
             // 
             // 
+            this.ribbonClientPanel1.StyleMouseDown.Class = "";
             this.ribbonClientPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
+            this.ribbonClientPanel1.StyleMouseOver.Class = "";
             this.ribbonClientPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel1.TabIndex = 0;
             // 
@@ -257,6 +323,7 @@
             this.btnXoaPhieuMuon.TabIndex = 71;
             this.btnXoaPhieuMuon.Text = "Xóa phiếu mượn";
             this.btnXoaPhieuMuon.UseVisualStyleBackColor = true;
+            this.btnXoaPhieuMuon.Click += new System.EventHandler(this.btnXoaPhieuMuon_Click);
             // 
             // gridViewChiTiet
             // 
@@ -306,7 +373,7 @@
             this.txtTienCoc.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.txtTienCoc.Location = new System.Drawing.Point(115, 155);
             this.txtTienCoc.Name = "txtTienCoc";
-            this.txtTienCoc.Size = new System.Drawing.Size(100, 20);
+            this.txtTienCoc.Size = new System.Drawing.Size(121, 20);
             this.txtTienCoc.TabIndex = 73;
             // 
             // labelX7
@@ -314,6 +381,7 @@
             // 
             // 
             // 
+            this.labelX7.BackgroundStyle.Class = "";
             this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelX7.Location = new System.Drawing.Point(25, 155);
@@ -390,6 +458,7 @@
             // 
             // 
             // 
+            this.lblGiaHan.BackgroundStyle.Class = "";
             this.lblGiaHan.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.lblGiaHan.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblGiaHan.Location = new System.Drawing.Point(333, 125);
@@ -403,6 +472,7 @@
             // 
             // 
             // 
+            this.labelX6.BackgroundStyle.Class = "";
             this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelX6.Location = new System.Drawing.Point(333, 96);
@@ -424,6 +494,7 @@
             // 
             // 
             // 
+            this.labelX5.BackgroundStyle.Class = "";
             this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelX5.Location = new System.Drawing.Point(333, 68);
@@ -445,6 +516,7 @@
             // 
             // 
             // 
+            this.labelX4.BackgroundStyle.Class = "";
             this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelX4.Location = new System.Drawing.Point(25, 126);
@@ -466,6 +538,7 @@
             // 
             // 
             // 
+            this.labelX3.BackgroundStyle.Class = "";
             this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelX3.Location = new System.Drawing.Point(25, 97);
@@ -479,6 +552,7 @@
             // 
             // 
             // 
+            this.labelX2.BackgroundStyle.Class = "";
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelX2.Location = new System.Drawing.Point(25, 68);
@@ -518,6 +592,7 @@
             // 
             // 
             // 
+            this.labelX1.BackgroundStyle.Class = "";
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelX1.Location = new System.Drawing.Point(115, 33);
@@ -585,5 +660,9 @@
         private System.Windows.Forms.ComboBox cboTenDG;
         private DevComponents.DotNetBar.Controls.TextBoxX txtTienCoc;
         private DevComponents.DotNetBar.LabelX labelX7;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtTenSachMuon;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtMaSachMuon;
+        private DevComponents.DotNetBar.LabelX labelX10;
+        private DevComponents.DotNetBar.LabelX labelX9;
     }
 }

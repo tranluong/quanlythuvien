@@ -54,6 +54,7 @@ namespace QuanLyThuVien
         {
             DauSachDAO pnDao = new DauSachDAO();
             BookService cls = new BookService();
+            BookDAO bDao = new BookDAO();
             if (gvDauSach.Rows.Count > 0)
             {
                 int MaDS = Convert.ToInt16(gvDauSach.CurrentRow.Cells[0].Value);
@@ -67,6 +68,8 @@ namespace QuanLyThuVien
                     {
                         if (pnDao.DeleteDS(MaDS))
                         {
+                            // Cập nhật lại số lượng khi xóa một đầu sách
+                            bDao.GiamSoLuongKhiXoaDauSach(GetCode.GETMaDauSach.masachDS);
                             gvDauSach.DataSource = cls.ShowDSTSach(GetCode.GETMaDauSach.masachDS);
                             gvDauSach.AllowUserToAddRows = false;
                         }

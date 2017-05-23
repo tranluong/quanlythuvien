@@ -44,6 +44,9 @@ namespace QuanLyThuVien
             dateMuon.MinDate = DateTime.Today;
             dateTra.Value = DateTime.Today.AddDays(+10);
             dateNgayLapPhieu.MinDate = DateTime.Today;
+            txtMaSachMuon.Enabled = false;
+            txtTenSachMuon.Enabled = false;
+            gridViewChiTiet.AllowUserToAddRows = false;
         }
 
         public void loadDocGia()
@@ -81,6 +84,7 @@ namespace QuanLyThuVien
             cboTenDG.Enabled = true;
             txtMaPN.Enabled = false;
             btnTim.Enabled = false;
+            btnLuuPhieu.Enabled = true;
         }
 
         private void btnTaoMoi_Click(object sender, EventArgs e)
@@ -90,8 +94,14 @@ namespace QuanLyThuVien
 
         private void btnTimMuon_Click(object sender, EventArgs e)
         {
+            MuonTraDAO mtDao = new MuonTraDAO();
             int idTimKiem = comboBox1.SelectedIndex;
             int maSachHoacLoai = Convert.ToInt32(cboTimSach.SelectedValue);
+            DataTable dt = mtDao.getInfoSachMuon(idTimKiem, maSachHoacLoai);
+            txtMaSachMuon.Text = dt.Rows[0]["Mã Sách"].ToString();
+            txtTenSachMuon.Text = dt.Rows[0]["Tên Sách"].ToString();
+            gridViewSach.DataSource = mtDao.getDauSachTheoLoaiTimKiem(idTimKiem, maSachHoacLoai);
+            gridViewSach.AllowUserToAddRows = false;
 
         }
 
@@ -121,7 +131,52 @@ namespace QuanLyThuVien
 
         private void btnLuuPhieu_Click(object sender, EventArgs e)
         {
+            if (gridViewChiTiet.Rows.Count == 0)
+            {
+                MessageBox.Show("Bạn chưa chọn sách nhập", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                MessageBox.Show("ok");
+            }
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DataRow dr;
+            DataTable dtable = new DataTable();
+            dtable.Columns.Add("Mã đầu sách");
+            dtable.Columns.Add("Tên đầu sách");
+            dtable.Columns.Add("Trạng thái sách");
+
+            if (gridViewSach.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow r in gridViewSach.SelectedRows)
+                {
+                    dr = dtable.NewRow();
+                    dr["Mã đầu sách"] = r.Cells["Mã Đầu Sách"].Value.ToString();
+                    dr["Tên đầu sách"] = r.Cells["Tên Đầu Sách"].Value.ToString();
+                    dr["Trạng thái sách"] = r.Cells["Tình Trạng"].Value.ToString();
+                    dtable.Rows.Add(dr);
+                }
+                gridViewChiTiet.DataSource = dtable;                
+                btnXoaPhieuMuon.Enabled = true;
+                gridViewChiTiet.AllowUserToAddRows = false;
+            }
+            else
+            {
+                MessageBox.Show("Hãy tìm sách muốn mượn hoặc nhấn ctrl và các dòng trên lưới để mượn sách !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnXoaPhieuMuon_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in gridViewChiTiet.SelectedRows)
+            {
+                if (!row.IsNewRow)
+                    gridViewChiTiet.Rows.Remove(row);
+            }
         }
     }
 }
