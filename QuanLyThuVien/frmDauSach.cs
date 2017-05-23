@@ -36,6 +36,7 @@ namespace QuanLyThuVien
             if (cls.EditDauSach(strBookID, clsBoo, MDS))
             {
                 dataGridView1.DataSource = cls.TimDauSach(clsBoo, MDS);
+                MessageBox.Show("Cập nhật thành công", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (cls.Error != "")
                     MessageBox.Show(cls.Error, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -46,14 +47,8 @@ namespace QuanLyThuVien
         }
 
         private void frmDauSach_Load(object sender, EventArgs e)
-        {
-            DauSachDAO clsLDGService = new DauSachDAO();
-            dataGridView1.DataSource = clsLDGService.ShowAllDauSach(GetCode.GETMaDauSach.masachDS);
-        }
-
-        private void groupBox16_Enter(object sender, EventArgs e)
-        {
-
+        {            
+            loadData();            
         }
 
         //private void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
@@ -88,7 +83,7 @@ namespace QuanLyThuVien
                 {
                     if (pnDao.DeleteDS(MaPN))
                     {
-                        MessageBox.Show("Xóa đầu sáchthành công", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Xóa đầu sách thành công", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 dataGridView1.DataSource = pnDao.ShowAllDauSach(GetCode.GETMaDauSach.masachDS);
@@ -98,5 +93,59 @@ namespace QuanLyThuVien
                 MessageBox.Show("Không có dữ liệu để xóa", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            fillData();
+        }
+
+        public void loadData()
+        {
+            DauSachDAO clsLDGService = new DauSachDAO();
+            DataTable dt = clsLDGService.ShowAllDauSach(GetCode.GETMaDauSach.masachDS);
+            if (dt.Rows.Count != 0)
+            {
+                dataGridView1.DataSource = dt;
+                fillData();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void fillData()
+        {
+            txtMaSach.Enabled = false;
+            txtMaSach.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+            string tinhTrang = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            int _s = 0;
+            if (tinhTrang == "Cũ")
+            {
+                _s = 0;
+            }
+            else if (tinhTrang == "Mới")
+            {
+                _s = 1;
+            }
+            else if (tinhTrang == "Hỏng")
+            {
+                _s = 2;
+            }
+            else if (tinhTrang == "Mất")
+            {
+                _s = 3;
+            }
+            cboTinhTrang.SelectedIndex = _s;
+            txtTenDauSach.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            txtGhiChu.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            dataGridView1.Columns[4].Visible = false;
+        }
+
+        private void label64_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
