@@ -24,7 +24,9 @@ namespace QuanLyThuVien
             dateTimePicker2.Value = dateTimePicker2.Value.Date;
             DataTable dt = new DataTable();
             KetNoi cnt = new KetNoi();
-            string sql = "select CTPN.MaPN,S.TenSach, CTPN.SoLuong, CTPN.DonGia, CTPN.ThanhTien from tblPhieuNhap PN,tblChiTietPhieuNhap CTPN, tblSach S where  PN.MaPN = CTPN.MaPN and CTPN.MaSach = S.MaSach and PN.NgayNhap between '" + dateTimePicker1.Value + "' and '" + dateTimePicker2.Value + "'";
+            string sql = "select CTPN.MaPN,S.TenSach, CTPN.SoLuong, CTPN.DonGia, CTPN.ThanhTien , PN.TongTriGia, PN.NgayNhap, NV.TenNV from tblNhanVien NV, tblPhieuNhap PN,tblChiTietPhieuNhap CTPN, tblSach S where  PN.MaNV = NV.MaNV and PN.MaPN = CTPN.MaPN and CTPN.MaSach = S.MaSach and PN.NgayNhap between '" + dateTimePicker1.Value + "' and '" + dateTimePicker2.Value + "'";
+            sql += " group by CTPN.MaPN,S.TenSach, CTPN.SoLuong, CTPN.DonGia, CTPN.ThanhTien , PN.TongTriGia,PN.NgayNhap, NV.TenNV";
+            sql += " order by CTPN.MaPN asc";
             dt = cnt.getDataTable(sql);
             CrystalReport1 cr = new CrystalReport1();
             cr.SetDataSource(dt);

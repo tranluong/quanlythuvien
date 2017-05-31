@@ -95,9 +95,9 @@
             "Sách Mất",
             "Sách Hỏng",
             "Sách Mượn",
-            "Sách Cũ",
             "Sách Trả",
-            "Sách Mượn Trễ Hạn"});
+            "Sách Mượn Trễ Hạn",
+            "Sách Hư Bìa"});
             this.comboBox1.Location = new System.Drawing.Point(114, 33);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);

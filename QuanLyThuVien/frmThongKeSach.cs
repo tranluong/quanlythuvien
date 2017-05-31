@@ -56,42 +56,42 @@ namespace QuanLyThuVien
                     {
                         if (Convert.ToInt16(comboBox1.SelectedIndex) == 3)
                         {
-                            dt = abc.ShowSachCu();
+                            dt = abc.ShowSachTra();
                             //dt = cnt.getDataTable(sql);
-                            SachCu cc = new SachCu();
-                            cc.SetDataSource(dt);
-                            crystalReportViewer1.ReportSource = cc;
+                            SachTra ccq = new SachTra();
+                            ccq.SetDataSource(dt);
+                            crystalReportViewer1.ReportSource = ccq;
                         }
                         else
                         {
                             if (Convert.ToInt16(comboBox1.SelectedIndex) == 4)
-                            {
-                                dt = abc.ShowSachTra();
-                                //dt = cnt.getDataTable(sql);
-                                SachTra ccq = new SachTra();
-                                ccq.SetDataSource(dt);
-                                crystalReportViewer1.ReportSource = ccq;
-                            }else
                             {
                                 dt = abc.ShowSachMuonTreHan();
                                 //dt = cnt.getDataTable(sql);
                                 SachMuonTreHan ccqq = new SachMuonTreHan();
                                 ccqq.SetDataSource(dt);
                                 crystalReportViewer1.ReportSource = ccqq;
+                            }else
+                            {
+                                dt = abc.ShowSachHuBia();
+                                //dt = cnt.getDataTable(sql);
+                                SachHuBia ccqqq = new SachHuBia();
+                                ccqqq.SetDataSource(dt);
+                                crystalReportViewer1.ReportSource = ccqqq;
                             }
                         }
                     }
-
                 }
+
             }
         }
-        //else
-        //{
-        //    dt = abc.ShowSachMuon();
-        //    //dt = cnt.getDataTable(sql);
-        //    SachMuon cr = new SachHong();
-        //    cr.SetDataSource(dt);
-        //    crystalReportViewer1.ReportSource = cr;
-        //}
     }
+    //else
+    //{
+    //    dt = abc.ShowSachMuon();
+    //    //dt = cnt.getDataTable(sql);
+    //    SachMuon cr = new SachHong();
+    //    cr.SetDataSource(dt);
+    //    crystalReportViewer1.ReportSource = cr;
+    //}
 }

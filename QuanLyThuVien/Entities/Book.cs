@@ -259,6 +259,20 @@ namespace QuanLyThuVien
             }
         }
 
+        public int SLHuBia
+        {
+            get
+            {
+                return intSLHuBia;
+            }
+
+            set
+            {
+                intSLHuBia = value;
+            }
+        }
+
         private int intSoLuongSau;
+        private int intSLHuBia = 0;
     }
 }
