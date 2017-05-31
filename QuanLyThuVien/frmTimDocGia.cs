@@ -19,7 +19,6 @@ namespace QuanLyThuVien
         {
             cboDocgia.SelectedIndex = 0;
             cboFilter.SelectedIndex = 0;
-            cboHienThi.SelectedIndex = 0;
 
             MuonTraService MTS = new MuonTraService();
             txtMaDG.Text = MTS.GetInfoReader(strMaDG).MaDG;
@@ -31,36 +30,6 @@ namespace QuanLyThuVien
             dataGridView2.Columns["MaPM"].Visible = false;
             if (clsRS.Error != "")
                 MessageBox.Show(clsRS.Error, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-
-        private void btnFilter_Click(object sender, EventArgs e)
-        {
-            if (txtMaDG.Text.Length != 0)
-            {
-                ReaderService cls = new ReaderService();
-                dataGridView2.DataSource = cls.QuaTrinhMuon(txtMaDG.Text, Convert.ToDateTime(dtDau.Value.ToShortDateString()), Convert.ToDateTime(dtCuoi.Value.ToShortDateString()), cboHienThi.SelectedIndex);
-                if (cls.Error != "")
-                {
-                    MessageBox.Show(cls.Error, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void cboHienThi_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (txtMaDG.Text.Length != 0)
-            {
-                ReaderService cls = new ReaderService();
-                if (cboHienThi.SelectedIndex == 0)
-                    dataGridView2.DataSource = cls.QuaTrinhMuon(txtMaDG.Text);
-                else
-                    dataGridView2.DataSource = cls.QuaTrinhMuon(txtMaDG.Text, Convert.ToDateTime(dtDau.Value.ToShortDateString()), Convert.ToDateTime(dtCuoi.Value.ToShortDateString()), cboHienThi.SelectedIndex);
-                if (cls.Error != "")
-                {
-                    MessageBox.Show(cls.Error, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -83,14 +52,14 @@ namespace QuanLyThuVien
                 DataGridViewRow vr = dataGridView1.CurrentRow;
                 if (vr != null)
                 {
-                    txtMaDG.Text = vr.Cells["MaDG"].Value.ToString();
-                    txtTenDG.Text = vr.Cells["TenDG"].Value.ToString();
-                    dataGridView1.Columns["NgayDatCoc"].Visible = false;
-                    dataGridView1.Columns["NgaySinh"].Visible = false;
-                    dataGridView1.Columns["DiaChi"].Visible = false;
-                    dataGridView1.Columns["SoDT"].Visible = false;
-                    dataGridView1.Columns["NoiSinh"].Visible = false;
-                    dataGridView1.Columns["ThoiGianKetThuc"].Visible = false;
+                    txtMaDG.Text = vr.Cells["Mã độc giả"].Value.ToString();
+                    txtTenDG.Text = vr.Cells["Độc giả"].Value.ToString();
+                    dataGridView1.Columns["Ngày đặt cọc"].Visible = false;
+                    dataGridView1.Columns["Ngày sinh"].Visible = false;
+                    dataGridView1.Columns["Địa chỉ"].Visible = false;
+                    dataGridView1.Columns["Điện thoại"].Visible = false;
+                    dataGridView1.Columns["Nơi sinh"].Visible = false;
+                    //dataGridView1.Columns["ThoiGianKetThuc"].Visible = false;
 
                     ReaderService clsRS = new ReaderService();
                     dataGridView2.DataSource = clsRS.QuaTrinhMuon(txtMaDG.Text);

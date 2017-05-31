@@ -30,20 +30,20 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ribbonClientPanel2 = new DevComponents.DotNetBar.Ribbon.RibbonClientPanel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gvTrangThaiTra = new System.Windows.Forms.DataGridView();
             this.ribbonClientPanel1 = new DevComponents.DotNetBar.Ribbon.RibbonClientPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.rdTraTre = new System.Windows.Forms.RadioButton();
             this.rdDaTra = new System.Windows.Forms.RadioButton();
             this.rdangmuon = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.gvTrangThaiTra = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.ribbonClientPanel2.SuspendLayout();
-            this.ribbonClientPanel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvTrangThaiTra)).BeginInit();
+            this.ribbonClientPanel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -77,15 +77,33 @@
             // 
             // 
             // 
-            this.ribbonClientPanel2.StyleMouseDown.Class = "";
             this.ribbonClientPanel2.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
-            this.ribbonClientPanel2.StyleMouseOver.Class = "";
             this.ribbonClientPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel2.TabIndex = 1;
             this.ribbonClientPanel2.Text = "ribbonClientPanel2";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.gvTrangThaiTra);
+            this.groupBox2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(9, 13);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(716, 251);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Kết quả";
+            // 
+            // gvTrangThaiTra
+            // 
+            this.gvTrangThaiTra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvTrangThaiTra.Location = new System.Drawing.Point(6, 28);
+            this.gvTrangThaiTra.Name = "gvTrangThaiTra";
+            this.gvTrangThaiTra.Size = new System.Drawing.Size(704, 217);
+            this.gvTrangThaiTra.TabIndex = 0;
             // 
             // ribbonClientPanel1
             // 
@@ -103,15 +121,12 @@
             // 
             // 
             // 
-            this.ribbonClientPanel1.StyleMouseDown.Class = "";
             this.ribbonClientPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
-            this.ribbonClientPanel1.StyleMouseOver.Class = "";
             this.ribbonClientPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel1.TabIndex = 0;
-            this.ribbonClientPanel1.Text = "ribbonClientPanel1";
             // 
             // groupBox1
             // 
@@ -121,9 +136,9 @@
             this.groupBox1.Controls.Add(this.rdDaTra);
             this.groupBox1.Controls.Add(this.rdangmuon);
             this.groupBox1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(3, 9);
+            this.groupBox1.Location = new System.Drawing.Point(9, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(722, 87);
+            this.groupBox1.Size = new System.Drawing.Size(716, 87);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tìm kiếm sách theo tình trạng";
@@ -174,26 +189,6 @@
             this.rdangmuon.Text = "Đang mượn";
             this.rdangmuon.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox2.Controls.Add(this.gvTrangThaiTra);
-            this.groupBox2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(9, 13);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(716, 251);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Kết quả";
-            // 
-            // gvTrangThaiTra
-            // 
-            this.gvTrangThaiTra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvTrangThaiTra.Location = new System.Drawing.Point(6, 28);
-            this.gvTrangThaiTra.Name = "gvTrangThaiTra";
-            this.gvTrangThaiTra.Size = new System.Drawing.Size(704, 217);
-            this.gvTrangThaiTra.TabIndex = 0;
-            // 
             // frmTimSach
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -205,11 +200,11 @@
             this.Load += new System.EventHandler(this.frmTimSach_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ribbonClientPanel2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gvTrangThaiTra)).EndInit();
             this.ribbonClientPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gvTrangThaiTra)).EndInit();
             this.ResumeLayout(false);
 
         }
