@@ -24,7 +24,7 @@ namespace QuanLyThuVien
 
             desiableFillAndButton();
             loadDocGia();
-            loadNhanVien();            
+            loadNhanVien();
         }
 
         public void desiableFillAndButton()
@@ -105,10 +105,10 @@ namespace QuanLyThuVien
             {
                 if (dt.Rows[0]["Giahan"].ToString().Equals("False"))
                 {
-                    lblGiaHan.Visible =true;
+                    lblGiaHan.Visible = true;
                     ckGiahan.Visible = true;
                     ckGiahan.Enabled = true;
-                    ckGiahan.Checked = false;                    
+                    ckGiahan.Checked = false;
                     btnCapnhat.Enabled = true;
                 }
                 else
@@ -119,7 +119,7 @@ namespace QuanLyThuVien
                     ckGiahan.Enabled = false;
                     btnCapnhat.Enabled = false;
                 }
-                
+
             }
             else
             {
@@ -193,9 +193,18 @@ namespace QuanLyThuVien
         {
             if (txtTenDocGia.Text.Trim().Length == 0)
             {
-                MessageBox.Show("Nhâp tên độc giả theo mã độc giả ở trên !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Chọn Mã Độc Giả muốn mượn sách !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            //Kiểm tra mã độc giả có được mượn không
+            MuonTraDAO mtDao1 = new MuonTraDAO();
+            DataTable dtTinhTrangMuonTraCuaDG = mtDao1.kiemTraDocGiaDaMuonChua(Convert.ToString(cboMaDG.SelectedValue));
+            if (dtTinhTrangMuonTraCuaDG.Rows.Count != 0)
+            {
+                MessageBox.Show("Độc giả này vẫn còn sách chưa trả, không thể mượn tiếp !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (gridViewChiTiet.Rows.Count == 0)
             {
                 MessageBox.Show("Bạn chưa chọn sách muốn mượn !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);

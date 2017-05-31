@@ -23,6 +23,11 @@ namespace QuanLyThuVien
 
         private void btnCapnhat_Click(object sender, EventArgs e)
         {
+            if (gvDauSach.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có đầu sách nào để cập nhật", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             DauSach clsBoo = new DauSach();           
             //clsBook.MaSach = Convert.ToInt16(cboMaSach.SelectedValue);
             clsBoo.TinhTrang = Convert.ToByte(cboTinhTrang.SelectedIndex);
@@ -47,6 +52,7 @@ namespace QuanLyThuVien
         private void frmDauSach_Load(object sender, EventArgs e)
         {
             loadData();
+            cboTimKiemTinhTrang.SelectedIndex = 4;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -147,6 +153,13 @@ namespace QuanLyThuVien
         private void btnDong_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnTim3_Click(object sender, EventArgs e)
+        {
+            DauSachDAO clsLDSDAO = new DauSachDAO();
+            int typeTrangThaiSach = cboTimKiemTinhTrang.SelectedIndex;
+            gvDauSach.DataSource = clsLDSDAO.getDauSachTheoTinhTrang(typeTrangThaiSach, GetCode.GETMaDauSach.masachDS);
         }
     }
 }

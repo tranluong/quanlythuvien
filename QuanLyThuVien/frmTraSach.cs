@@ -92,29 +92,7 @@ namespace QuanLyThuVien
             {
                 MessageBox.Show("Sách này đã trả hết !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            //AddComboBoxColumn();
         }
-
-        //private void AddComboBoxColumn()
-        //{
-        //    DataGridViewComboBoxColumn dgcm = new DataGridViewComboBoxColumn();
-        //    dgcm.HeaderText = "Employee";
-        //    DataTable dt = new DataTable();
-        //    dt.Columns.Add("ID");
-        //    dt.Columns.Add("Name");
-        //    for (int i = 1; i < 5; i++)
-        //    {
-        //        DataRow dr = dt.NewRow();
-        //        dr["ID"] = i;
-        //        dr["Name"] = "Employee " + i;
-        //        dt.Rows.Add(dr);
-        //    }
-        //    dgcm.ValueMember = "ID";
-        //    dgcm.DisplayMember = "Name";
-        //    dgcm.DataSource = dt;
-        //    dgcm.Value = dgcm.Items[0];
-        //    dvCTPTra.Columns.Add(dgcm);
-        //}
 
         private void frmTraSach_Load(object sender, EventArgs e)
         {
@@ -164,42 +142,20 @@ namespace QuanLyThuVien
                         int tinhTrangSach = Convert.ToInt32(cboTinhTrangSach.Items.IndexOf(cboTinhTrangSach.Value));
                         int trangThaiMuon = Convert.ToInt32(cboTrangThaiMuon.Items.IndexOf(cboTrangThaiMuon.Value));
                         
-                        ////Tính tiền phạt và tiền trả lại
-                        //int tienCoc = Convert.ToInt32(txtTienCoc.Text);
-                        //if ((tinhTrangSach == 0) && (trangThaiMuon == 1))
-                        //{
-                        //    txtTienTraLai.Text = Convert.ToString(tienCoc);
-                        //    txtTienPhat.Text = "0";
-                        //}
-                        //else if ((tinhTrangSach == 0) && (trangThaiMuon == 2))
-                        //{
-                        //    txtTienPhat.Text = Convert.ToString(dvCTPTra.Rows.Count * 1000);
-                        //    txtTienTraLai.Text = Convert.ToString(Convert.ToInt32(txtTienCoc.Text) - Convert.ToInt32(txtTienPhat.Text));
-                        //}
-                        //else if ((tinhTrangSach == 1 && trangThaiMuon == 1) || (tinhTrangSach == 1 && trangThaiMuon == 2))
-                        //{
-                        //    int MaLoaiDG = Convert.ToInt32(dtLoaiDG.Rows[0]["MaLoaiDG"].ToString());
-                        //    if (MaLoaiDG == 1)// Sinh viên
-                        //    {
-                                                              
-                        //    }
-                        //}
-
+                        // Update lại trạng thái cho 2 bảng tblChiTietPhieuMuonTra và tblDauSach
                         int MaDauSach = Convert.ToInt32(row.Cells[1].Value);
                         mtDao.CapNhatChiTietPhieuMuonTra(MaPM, MaDauSach, DateTime.Today, tinhTrangSach, trangThaiMuon);
-
-                        //MessageBox.Show(Convert.ToString(cboTinhTrangSach.Items.IndexOf(cboTinhTrangSach.Value)));
                     }                    
                 }
 
-                //Lấy tiền đặt cọc theo mã phiếu
-                double tienDatCoc = mtDao.layTienDatCocTheoMaPM(MaPM);
+                //Lấy hạn trả sách theo mã phiếu trong bảng tblPhieuMuonTra
+                DataTable dtHanTra = mtDao.layHanTraTheoMaPM(MaPM);
                 //Đếm MaPM theo số phiếu nhập
                 int countMaPM = mtDao.DemMaPM(MaPM);
                 //Đếm MaPM theo tình trạng mượn trả(0:Đang mượn, 1:Đã trả, 2:Trả trễ)
                 int countMaPMBTheoTinhTrang = mtDao.DemMaPMTheoTinhTrang(MaPM);
                 double tienPhat = 0;
-                //So sáng mã phiếu mượn với MaPM có tình trang khác 0 để tính tiền phạt và tiền trả lại
+                //So sáng MaPM với MaPM có tình trang khác 0 để tính tiền phạt và tiền trả lại trong bảng tblChiTietPhieuMuonTra
                 if (countMaPM == countMaPMBTheoTinhTrang)
                 {
                     //Lấy mã đầu sách và tình trạng mượn trả trong tblChiTietPhieuMuonTra
@@ -208,24 +164,89 @@ namespace QuanLyThuVien
                     {
                         int MaDS = Convert.ToInt32(row["Mã đầu sách"].ToString());
                         int tinhTrangMuonTra = Convert.ToInt32(row["Tình trạng mượn"].ToString());
-                        //Lấy trạng thái sách và đơn giá  sách
+                        //Lấy trạng thái sách và đơn giá sách
                         DataTable dtTrangThaiSachDonGia = mtDao.layTrangThaiSachTheoMaDS(MaDS);
                         int trangThaiSach = Convert.ToInt32(dtTrangThaiSachDonGia.Rows[0]["Trạng thái sách"].ToString());
                         double donGiaSach = Convert.ToDouble(dtTrangThaiSachDonGia.Rows[0]["DonGia"].ToString());
                         //MessageBox.Show(tinhTrangMuonTra.ToString());
+                        if (trangThaiSach == 0)// Sách mới
+                        {
+                            if (tinhTrangMuonTra == 1) // trạng thái: đã trả
+                            {
+                                tienPhat += 0;
+                            }
+                            else if (tinhTrangMuonTra == 2)// trạng thái: trả trễ
+                            {
+                                DateTime ngayTraHienTai = DateTime.Today;
+                                DateTime hanTra = Convert.ToDateTime(dtHanTra.Rows[0]["HanTra"].ToString());
+                                TimeSpan difference = ngayTraHienTai - hanTra;
+                                int days = (int)Math.Ceiling(difference.TotalDays);                                
+                                tienPhat += days * 1000;
+                            }
+                        }
+                        else if ((trangThaiSach == 1) || (trangThaiSach == 2)) //Sách hỏng hoặc mất đều đền và ko tính phí trả trễ
+                        {
+                            int MaLoaiDG = Convert.ToInt32(dtLoaiDG.Rows[0]["MaLoaiDG"].ToString());
+                            if (MaLoaiDG == 1)// Sinh viên
+                            {
+                                tienPhat += donGiaSach * 3;
+                            }
+                            else if (MaLoaiDG == 2) //Giáo viên
+                            {
+                                tienPhat += donGiaSach * 2;
+                            }
+                        }
+                        else if (trangThaiSach == 3) // Sách hư bìa đền 50K
+                        {
+                            if (tinhTrangMuonTra == 1)// Đã trả
+                            {
+                                tienPhat += 50000;      
+                            }
+                            else if (tinhTrangMuonTra == 2)// Trả trễ
+                            {
+                                DateTime ngayTraHienTai = DateTime.Today;
+                                DateTime hanTra = Convert.ToDateTime(dtHanTra.Rows[0]["HanTra"].ToString());
+                                TimeSpan difference = ngayTraHienTai - hanTra;
+                                int days = (int)Math.Ceiling(difference.TotalDays);
+                                tienPhat += 50000 + (days * 1000);
+                            }
+                            
+                        }
+                    }
+                    //Tính tiền còn lại
+                    double tienConLai = Convert.ToDouble(txtTienCoc.Text) - tienPhat;
+                    txtTienPhat.Text = Convert.ToString(tienPhat);
+                    txtTienTraLai.Text = Convert.ToString(tienConLai);
+                    //cập nhật tiền phạt và tiền trả lại trong tblPhieuMuonTra
+                    mtDao.CapNhatTienPhieuMuonTra(MaPM, Convert.ToDouble(txtTienTraLai.Text), Convert.ToDouble(txtTienPhat.Text));
+                }
+                // Thông báo trả sách thành công 
+                MessageBox.Show("Trả sách thành công !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Load chi tiết phiếu mượn trả
+                DataTable dtableCTPTra = mtService.TimCTPhieuTra(MaPM);
+                dvCTPTra.Rows.Clear();
+                if (dtableCTPTra.Rows.Count != 0)
+                {
+                    for (int i = 0; i < dtableCTPTra.Rows.Count; i++)
+                    {
+                        dvCTPTra.Rows.Add();
+                        dvCTPTra.Rows[i].Cells["MaDauSach"].Value = dtableCTPTra.Rows[i]["Mã đầu sách"].ToString();
+                        dvCTPTra.Rows[i].Cells["TenSach"].Value = dtableCTPTra.Rows[i]["Tên sách"].ToString();
+                        dvCTPTra.Rows[i].Cells["TinhTrang"].Value = dtableCTPTra.Rows[i]["Tình trạng"].ToString();
+                        dvCTPTra.Rows[i].Cells["NgayToiTra"].Value = Convert.ToString(DateTime.Today.ToShortDateString());
+                        dvCTPTra.Rows[i].Cells["GiaSach"].Value = dtableCTPTra.Rows[i]["Đơn giá"].ToString();
                     }
                 }
-                
-
-                if (!isChecked)
-                    MessageBox.Show("Hãy check vào sách bạn muốn trả !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 MessageBox.Show("Không tìm thấy sách bạn muốn trả !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            
 
+            // Kiểm tra nếu không check vào checkbox nào để trả sách thì thông báo
+            if (!isChecked)
+                MessageBox.Show("Hãy check vào sách bạn muốn trả !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

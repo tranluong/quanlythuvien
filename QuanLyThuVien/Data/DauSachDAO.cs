@@ -137,6 +137,62 @@ namespace QuanLyThuVien.Data
             return dt;
         }
 
+        public DataTable getDauSachTheoTinhTrang(int typeTrangThaiSach, int intMaSACH)
+        {
+            string strSQL = "";
+            switch (typeTrangThaiSach)
+            {
+                case 0:
+                    strSQL += "select MaDauSach as 'Mã Đầu Sách', CASE TinhTrang WHEN 0 THEN N'Mới' WHEN 1 THEN N'Hỏng' WHEN 2 THEN N'Mất' WHEN 3 THEN N'Hư bìa sách' END as 'Tình Trạng', GhiChu as 'Ghi Chú', MaSach as 'Mã Sách' from tblDauSach where MaSach = '" + intMaSACH + "' AND TinhTrang = 0";
+                    break;
+                case 1:
+                    strSQL += "select MaDauSach as 'Mã Đầu Sách', CASE TinhTrang WHEN 0 THEN N'Mới' WHEN 1 THEN N'Hỏng' WHEN 2 THEN N'Mất' WHEN 3 THEN N'Hư bìa sách' END as 'Tình Trạng', GhiChu as 'Ghi Chú', MaSach as 'Mã Sách' from tblDauSach where MaSach = '" + intMaSACH + "' AND TinhTrang = 1";
+                    break;
+                case 2:
+                    strSQL += "select MaDauSach as 'Mã Đầu Sách', CASE TinhTrang WHEN 0 THEN N'Mới' WHEN 1 THEN N'Hỏng' WHEN 2 THEN N'Mất' WHEN 3 THEN N'Hư bìa sách' END as 'Tình Trạng', GhiChu as 'Ghi Chú', MaSach as 'Mã Sách' from tblDauSach where MaSach = '" + intMaSACH + "' AND TinhTrang = 2";
+                    break;
+                case 3:
+                    strSQL += "select MaDauSach as 'Mã Đầu Sách', CASE TinhTrang WHEN 0 THEN N'Mới' WHEN 1 THEN N'Hỏng' WHEN 2 THEN N'Mất' WHEN 3 THEN N'Hư bìa sách' END as 'Tình Trạng', GhiChu as 'Ghi Chú', MaSach as 'Mã Sách' from tblDauSach where MaSach = '" + intMaSACH + "' AND TinhTrang = 3";
+                    break;
+                case 4:
+                    strSQL += "select MaDauSach as 'Mã Đầu Sách', CASE TinhTrang WHEN 0 THEN N'Mới' WHEN 1 THEN N'Hỏng' WHEN 2 THEN N'Mất' WHEN 3 THEN N'Hư bìa sách' END as 'Tình Trạng', GhiChu as 'Ghi Chú', MaSach as 'Mã Sách' from tblDauSach where MaSach = '" + intMaSACH + "'";
+                    break;
+                default:
+                    break;
+            }
+            DataTable dt = new DataTable();
+            Database cls = new Database();
+            try
+            {
+                dt = cls.GetData(strSQL).Tables[0];
+                if (cls.Error != "")
+                    strError = cls.Error;
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+            }
+            return dt;
+        }
+
+        public DataTable getDauSachTheoTinhTrangMuonTra(int typeTinhTrangMuonTra)
+        {
+            string strSQL = "select ds.MaDauSach as 'Mã đầu sách', s.TenSach as 'Tên sách', mt.NgayMuon as 'Ngày mượn', mt.HanTra as 'Hạn trả', ctmt.NgayTra as 'Ngày trả' from tblPhieuMuonTra mt join tblChiTietPhieuMuonTra ctmt on mt.MaPM=ctmt.MaPM join tblDauSach ds on ctmt.MaDauSach=ds.MaDauSach join tblSach s on ds.MaSach=s.MaSach where ctmt.TinhTrang='"+typeTinhTrangMuonTra+"'";
+            DataTable dt = new DataTable();
+            Database cls = new Database();
+            try
+            {
+                dt = cls.GetData(strSQL).Tables[0];
+                if (cls.Error != "")
+                    strError = cls.Error;
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+            }
+            return dt;
+        }
+
         private string strError = "";
         public string Error
         {
