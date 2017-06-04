@@ -71,10 +71,12 @@
             // 
             // 
             // 
+            this.ribbonClientPanel1.StyleMouseDown.Class = "";
             this.ribbonClientPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
+            this.ribbonClientPanel1.StyleMouseOver.Class = "";
             this.ribbonClientPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel1.TabIndex = 0;
             // 
@@ -119,10 +121,12 @@
             // 
             // 
             // 
+            this.ribbonClientPanel2.StyleMouseDown.Class = "";
             this.ribbonClientPanel2.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
+            this.ribbonClientPanel2.StyleMouseOver.Class = "";
             this.ribbonClientPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel2.TabIndex = 1;
             // 
@@ -144,7 +148,7 @@
             this.ClientSize = new System.Drawing.Size(735, 461);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "frmThongKeSach";
-            this.Text = "frmThongKeSach";
+            this.Text = "Báo cáo thống kê sách";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ribbonClientPanel1.ResumeLayout(false);
             this.ribbonClientPanel2.ResumeLayout(false);

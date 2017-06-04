@@ -77,10 +77,12 @@
             // 
             // 
             // 
+            this.ribbonClientPanel1.StyleMouseDown.Class = "";
             this.ribbonClientPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
+            this.ribbonClientPanel1.StyleMouseOver.Class = "";
             this.ribbonClientPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel1.TabIndex = 0;
             // 
@@ -142,10 +144,12 @@
             // 
             // 
             // 
+            this.ribbonClientPanel2.StyleMouseDown.Class = "";
             this.ribbonClientPanel2.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
+            this.ribbonClientPanel2.StyleMouseOver.Class = "";
             this.ribbonClientPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel2.TabIndex = 1;
             // 
@@ -161,14 +165,14 @@
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.Load += new System.EventHandler(this.crystalReportViewer1_Load_1);
             // 
-            // InPhieuMuon
+            // InPhieuNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(796, 391);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "InPhieuMuon";
-            this.Text = "InPhieuMuon";
+            this.Name = "InPhieuNhap";
+            this.Text = "Báo cáo phiếu nhập sách";
             this.Load += new System.EventHandler(this.InPhieuMuon_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ribbonClientPanel1.ResumeLayout(false);
