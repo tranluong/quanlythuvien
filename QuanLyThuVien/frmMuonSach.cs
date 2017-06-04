@@ -198,6 +198,12 @@ namespace QuanLyThuVien
             }
             //Kiểm tra mã độc giả có được mượn không
             MuonTraDAO mtDao1 = new MuonTraDAO();
+            DataTable dtKiemtraDGHetHan = mtDao1.kiemTraDocGiaDaHetHanMuon(Convert.ToString(cboMaDG.SelectedValue));
+            if (dtKiemtraDGHetHan.Rows.Count != 0)
+            {
+                MessageBox.Show("Độc giả này đã hết hạn sử dụng thẻ, không thể mượn tiếp !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             DataTable dtTinhTrangMuonTraCuaDG = mtDao1.kiemTraDocGiaDaMuonChua(Convert.ToString(cboMaDG.SelectedValue));
             if (dtTinhTrangMuonTraCuaDG.Rows.Count != 0)
             {

@@ -20,6 +20,7 @@ namespace QuanLyThuVien
         private string strGhiChu = "";
         private int intTongDauSach = 0;
         private int intSLMat = 0;
+        private int intSLMoi = 0;
         private int intSLHong = 0;
         private int intSLMuon = 0;
         private int intSLCon = 0;
@@ -230,6 +231,18 @@ namespace QuanLyThuVien
             set
             {
                 intSLMat = value;
+            }
+        }
+        public int SLMoi
+        {
+            get
+            {
+                return intSLMoi;
+            }
+
+            set
+            {
+                intSLMoi = value;
             }
         }
 

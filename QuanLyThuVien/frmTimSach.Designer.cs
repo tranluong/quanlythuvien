@@ -83,7 +83,6 @@
             // 
             this.ribbonClientPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonClientPanel2.TabIndex = 1;
-            this.ribbonClientPanel2.Text = "ribbonClientPanel2";
             // 
             // groupBox2
             // 
